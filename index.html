@@ -77,5 +77,29 @@
             }
         }
     </script>
+    <script>
+    // Navigation Logic
+    const menuItems = document.querySelectorAll('.sidebar ul li');
+    const pageTitle = document.getElementById('pageTitle');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            menuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            pageTitle.innerText = this.getAttribute('data-page');
+        });
+    });
+
+    function togglePump() {
+        let status = document.getElementById('pumpStatus');
+        if (status.classList.contains('off')) {
+            status.innerText = "Active";
+            status.classList.replace('off', 'on');
+        } else {
+            status.innerText = "Stopped";
+            status.classList.replace('on', 'off');
+        }
+    }
+</script>
 </body>
 </html>
