@@ -1,61 +1,78 @@
+:root {
+    --primary: #2d5a27;
+    --bg: #f4f7f6;
+    --white: #ffffff;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg);
     margin: 0;
-    padding: 20px;
-}
-
-.container {
-    max-width: 800px;
-    margin: auto;
-    text-align: center;
-}
-
-header h1 {
-    color: #2d5a27;
-}
-
-.dashboard {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 30px;
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.main-layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Sidebar Style */
+.sidebar {
     width: 250px;
-    margin-bottom: 20px;
-}
-
-.value {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #2196F3;
-}
-
-.status {
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.on { color: #4CAF50; }
-.off { color: #f44336; }
-
-.btn {
-    background-color: #2d5a27;
+    background: var(--primary);
     color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 20px;
+}
+
+.sidebar h2 { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; }
+
+.sidebar ul { list-style: none; padding: 0; margin-top: 30px; }
+
+.sidebar li {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.btn:hover {
-    background-color: #3e7e3a;
+.sidebar li.active, .sidebar li:hover { background: rgba(255,255,255,0.1); }
+
+/* Content Style */
+.content { flex: 1; padding: 40px; overflow-y: auto; }
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
 }
+
+.card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.border-blue { border-top: 5px solid #2196F3; }
+.border-green { border-top: 5px solid #4CAF50; }
+.border-orange { border-top: 5px solid #FF9800; }
+
+.value { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
+
+/* Progress Bar */
+.progress-bar { background: #eee; height: 10px; border-radius: 5px; }
+.fill { background: #2196F3; height: 100%; border-radius: 5px; }
+
+.status { font-weight: bold; margin-bottom: 15px; }
+.status.on { color: #4CAF50; }
+.status.off { color: #f44336; }
+
+.btn-toggle {
+    background: #333; color: white; border: none;
+    padding: 10px 15px; border-radius: 5px; cursor: pointer;
+}
+
+.chart-container { margin-top: 20px; }
