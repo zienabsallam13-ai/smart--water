@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Irrigation System</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Smart Agri Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* كود التنسيق - CSS */
+        :root { --primary: #2d5a27; --bg: #f4f7f6; --white: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); margin: 0; display: flex; }
+        .main-layout { display: flex; width: 100%; min-height: 100vh; }
+        .sidebar { width: 250px; background: var(--primary); color: white; padding: 20px; }
+        .sidebar h2 { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; text-align: center; }
+        .sidebar ul { list-style: none; padding: 0; margin-top: 30px; }
+        .sidebar li { padding: 15px; margin-bottom: 10px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .sidebar li.active, .sidebar li:hover { background: rgba(255,255,255,0.2); }
+        .content { flex: 1; padding: 40px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .border-blue { border-top: 5px solid #2196F3; }
+        .border-green { border-top: 5px solid #4CAF50; }
+        .border-orange { border-top: 5px solid #FF9800; }
+        .value { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
+        .status { font-weight: bold; margin-bottom: 15px; color: #4CAF50; }
+        .btn-toggle { background: #333; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+    </style>
 </head>
 <body>
     <div class="main-layout">
@@ -14,79 +33,44 @@
             <ul>
                 <li class="active" data-page="Dashboard">Dashboard</li>
                 <li data-page="Statistics">Statistics</li>
-                <li data-page="System Logs">Logs</li>
+                <li data-page="Logs">Logs</li>
                 <li data-page="Settings">Settings</li>
             </ul>
         </nav>
-
         <main class="content">
             <header>
                 <h1 id="pageTitle">Dashboard</h1>
-                <p>Welcome back, basamla! System is running smoothly.</p>
+                <p>Welcome back, Zainab! System is running smoothly.</p>
             </header>
-
             <div class="stats-grid">
-                <div class="card border-blue">
-                    <h3>Soil Moisture</h3>
-                    <div class="value">65%</div>
-                    <div class="progress-bar"><div class="fill" style="width: 65%;"></div></div>
-                </div>
+                <div class="card border-blue"><h3>Soil Moisture</h3><div class="value">65%</div></div>
                 <div class="card border-green">
                     <h3>Pump Status</h3>
-                    <div id="pumpStatus" class="status on">Active</div>
+                    <div id="pumpStatus" class="status">Active</div>
                     <button onclick="togglePump()" class="btn-toggle">Toggle Pump</button>
                 </div>
-                <div class="card border-orange">
-                    <h3>Air Temp</h3>
-                    <div class="value">28°C</div>
-                </div>
+                <div class="card border-orange"><h3>Air Temp</h3><div class="value">28°C</div></div>
             </div>
-
             <div class="chart-container card">
-                <h3>Weekly Water Usage (Liters)</h3>
+                <h3>Weekly Water Usage</h3>
                 <canvas id="waterChart"></canvas>
             </div>
         </main>
     </div>
-
     <script>
-        // Chart Config
+        /* كود البرمجة - JS */
         const ctx = document.getElementById('waterChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-                datasets: [{
-                    label: 'Liters / Day',
-                    data: [12, 19, 15, 8, 22, 10, 15],
-                    borderColor: '#2d5a27',
-                    backgroundColor: 'rgba(45, 90, 39, 0.1)',
-                    fill: true
-                }]
+                datasets: [{ label: 'Liters', data: [12, 19, 15, 8, 22, 10, 15], borderColor: '#2d5a27', fill: true }]
             }
         });
-
-        // Sidebar Navigation Logic
-        const menuItems = document.querySelectorAll('.sidebar ul li');
-        const pageTitle = document.getElementById('pageTitle');
-
-        menuItems.forEach(item => {
-            item.addEventListener('click', function() {
-                menuItems.forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                pageTitle.innerText = this.getAttribute('data-page');
-            });
-        });
-
         function togglePump() {
-            let status = document.getElementById('pumpStatus');
-            if (status.classList.contains('off')) {
-                status.innerText = "Active";
-                status.classList.replace('off', 'on');
-            } else {
-                status.innerText = "Stopped";
-                status.classList.replace('on', 'off');
-            }
+            let s = document.getElementById('pumpStatus');
+            if (s.innerText === "Active") { s.innerText = "Stopped"; s.style.color = "#f44336"; }
+            else { s.innerText = "Active"; s.style.color = "#4CAF50"; }
         }
     </script>
 </body>
