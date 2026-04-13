@@ -1,63 +1,63 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الري الذكي - لوحة التحكم</title>
+    <title>Smart Irrigation System</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="main-layout">
         <nav class="sidebar">
-            <h2>الري الذكي 🌱</h2>
+            <h2>Smart Agri 🌱</h2>
             <ul>
-                <li class="active">الرئيسية</li>
-                <li>الإحصائيات</li>
-                <li>سجل العمليات</li>
-                <li>الإعدادات</li>
+                <li class="active" data-page="Dashboard">Dashboard</li>
+                <li data-page="Statistics">Statistics</li>
+                <li data-page="System Logs">Logs</li>
+                <li data-page="Settings">Settings</li>
             </ul>
         </nav>
 
         <main class="content">
             <header>
-                <h1>لوحة التحكم الإحصائية</h1>
-                <p>مرحباً زينب، إليكِ تحديثات المزرعة الآن:</p>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Welcome back, Zainab! System is running smoothly.</p>
             </header>
 
             <div class="stats-grid">
                 <div class="card border-blue">
-                    <h3>رطوبة التربة</h3>
+                    <h3>Soil Moisture</h3>
                     <div class="value">65%</div>
                     <div class="progress-bar"><div class="fill" style="width: 65%;"></div></div>
                 </div>
                 <div class="card border-green">
-                    <h3>حالة المضخة</h3>
-                    <div id="pumpStatus" class="status on">تعمل الآن</div>
-                    <button onclick="togglePump()" class="btn-toggle">تبديل الحالة</button>
+                    <h3>Pump Status</h3>
+                    <div id="pumpStatus" class="status on">Active</div>
+                    <button onclick="togglePump()" class="btn-toggle">Toggle Pump</button>
                 </div>
                 <div class="card border-orange">
-                    <h3>حرارة الجو</h3>
+                    <h3>Air Temp</h3>
                     <div class="value">28°C</div>
                 </div>
             </div>
 
             <div class="chart-container card">
-                <h3>استهلاك المياه خلال الأسبوع</h3>
+                <h3>Weekly Water Usage (Liters)</h3>
                 <canvas id="waterChart"></canvas>
             </div>
         </main>
     </div>
 
     <script>
-        // كود الرسم البياني
+        // Chart Config
         const ctx = document.getElementById('waterChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+                labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
                 datasets: [{
-                    label: 'لتر/يوم',
+                    label: 'Liters / Day',
                     data: [12, 19, 15, 8, 22, 10, 15],
                     borderColor: '#2d5a27',
                     backgroundColor: 'rgba(45, 90, 39, 0.1)',
@@ -66,40 +66,28 @@
             }
         });
 
+        // Sidebar Navigation Logic
+        const menuItems = document.querySelectorAll('.sidebar ul li');
+        const pageTitle = document.getElementById('pageTitle');
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                menuItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                pageTitle.innerText = this.getAttribute('data-page');
+            });
+        });
+
         function togglePump() {
             let status = document.getElementById('pumpStatus');
             if (status.classList.contains('off')) {
-                status.innerText = "تعمل الآن";
+                status.innerText = "Active";
                 status.classList.replace('off', 'on');
             } else {
-                status.innerText = "متوقفة";
+                status.innerText = "Stopped";
                 status.classList.replace('on', 'off');
             }
         }
     </script>
-    <script>
-    // Navigation Logic
-    const menuItems = document.querySelectorAll('.sidebar ul li');
-    const pageTitle = document.getElementById('pageTitle');
-
-    menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            menuItems.forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-            pageTitle.innerText = this.getAttribute('data-page');
-        });
-    });
-
-    function togglePump() {
-        let status = document.getElementById('pumpStatus');
-        if (status.classList.contains('off')) {
-            status.innerText = "Active";
-            status.classList.replace('off', 'on');
-        } else {
-            status.innerText = "Stopped";
-            status.classList.replace('on', 'off');
-        }
-    }
-</script>
 </body>
 </html>
