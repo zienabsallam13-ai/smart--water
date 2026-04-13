@@ -1,0 +1,46 @@
+<script>
+    // كود الرسم البياني (زي ما هو)
+    const ctx = document.getElementById('waterChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+            datasets: [{
+                label: 'لتر/يوم',
+                data: [12, 19, 15, 8, 22, 10, 15],
+                borderColor: '#2d5a27',
+                backgroundColor: 'rgba(45, 90, 39, 0.1)',
+                fill: true
+            }]
+        }
+    });
+
+    // كود التنقل بين القوائم (الجديد)
+    const menuItems = document.querySelectorAll('.sidebar ul li');
+    const mainHeader = document.querySelector('.content h1');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // شيل علامة النشاط من الكل وحطها على اللي اتمسكت
+            menuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            
+            // تغيير العنوان عشان تحسي إن الصفحة اتغيرت
+            mainHeader.innerText = "صفحة " + this.innerText;
+            
+            // هنا ممكن مستقبلاً نخفي ونظهر أقسام تانية
+            console.log("تم الانتقال إلى: " + this.innerText);
+        });
+    });
+
+    function togglePump() {
+        let status = document.getElementById('pumpStatus');
+        if (status.classList.contains('off')) {
+            status.innerText = "تعمل الآن";
+            status.classList.replace('off', 'on');
+        } else {
+            status.innerText = "متوقفة";
+            status.classList.replace('on', 'off');
+        }
+    }
+</script>
