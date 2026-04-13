@@ -5,10 +5,9 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     background-color: var(--bg);
     margin: 0;
-    display: flex;
 }
 
 .main-layout {
@@ -17,7 +16,7 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar Style */
+/* Sidebar */
 .sidebar {
     width: 250px;
     background: var(--primary);
@@ -25,7 +24,11 @@ body {
     padding: 20px;
 }
 
-.sidebar h2 { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; }
+.sidebar h2 { 
+    border-bottom: 1px solid rgba(255,255,255,0.2); 
+    padding-bottom: 15px; 
+    text-align: center;
+}
 
 .sidebar ul { list-style: none; padding: 0; margin-top: 30px; }
 
@@ -37,10 +40,10 @@ body {
     transition: 0.3s;
 }
 
-.sidebar li.active, .sidebar li:hover { background: rgba(255,255,255,0.1); }
+.sidebar li.active, .sidebar li:hover { background: rgba(255,255,255,0.2); }
 
-/* Content Style */
-.content { flex: 1; padding: 40px; overflow-y: auto; }
+/* Main Content */
+.content { flex: 1; padding: 40px; }
 
 .stats-grid {
     display: grid;
@@ -62,7 +65,6 @@ body {
 
 .value { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
 
-/* Progress Bar */
 .progress-bar { background: #eee; height: 10px; border-radius: 5px; }
 .fill { background: #2196F3; height: 100%; border-radius: 5px; }
 
